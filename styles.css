@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* variables */
+:root {
+    --white: #fff;
+    --black: #000;
+    --light-black: #323030;
+    --dark-grey: #c6c6c6;
+    --heading-font: "Lilita One", sans-serif;
+    --text-font: "Lato", sans-serif;
+}
+
+/* main styles */
+body {
+    background-color: var(--light-black);
+    color: var(--white);
+    font-family: var(--text-font);
+    text-align: center;
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+
+header,
+.title-wrapper,
+.input-wrapper,
+.movie,
+#modal-wrapper  {
+    display: flex;
+    justify-content: center;
+}
+header {
+    flex-direction: column;
+    border-bottom: 3px solid var(--white);
+    padding: 0 0 20px;
+}
+
+.input-wrapper,
+.movie {
+    flex-direction: column;
+}
+
+.movie-wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 30px;
+}
+
+.movie {
+    justify-content: space-evenly;
+    border: 3px solid var(--dark-grey);
+    border-radius: 6px;
+    padding: 20px 10px;
+    min-height: 300px;
+}
+
+.movie-poster {
+    width: 30%;
+    margin: auto;
+}
+
+/* modal */
+
+#hidden {
+    display: none;
+}
+
+#close {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 40px;
+    cursor: pointer;
+}
+
+#modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(100, 100, 100, 0.4);
+    height: 100vh;
+    align-items: center;
+}
+
+#modal {
+    border: 3px solid var(--dark-grey);
+    border-radius: 6px;
+    padding: 20px 10px;
+    background-color: black;
+    width:60%;
+}
+
+/* typography */
+h1,
+h4 {
+    font-family: var(--heading-font);
+    letter-spacing: 4px;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h4 {
+    font-size: 1rem;
+}
+
+ul {
+    list-style-type: none;
+    list-style-type: none;
+}
+
+/* form */
+input {
+    width: 80%;
+    margin: 20px auto;
+    padding: 16px 10px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+    width: 20%;
+    min-width: 160px;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    font-size: 1.125rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: background-color .2s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--dark-grey);
+}
+
+/* Media Queries */
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 6rem;
+    }
+
+    h4 {
+        font-size: 1.125rem;
+    }
+
+    .movie-wrapper {
+        grid-template-columns: repeat(2, 50%);
+    }
+
+}
+
+@media (min-width: 1010px) {
+    .movie-wrapper {
+        grid-template-columns: repeat(3, 33%);
+    }
+}
