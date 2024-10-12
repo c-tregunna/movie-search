@@ -19,7 +19,7 @@ body {
     background-color: var(--light-black);
     color: var(--white);
     font-family: var(--text-font);
-    text-align: center;
+    /* text-align: center; */
 }
 
 .wrapper {
@@ -35,6 +35,7 @@ header,
     display: flex;
     justify-content: center;
 }
+
 header {
     flex-direction: column;
     border-bottom: 3px solid var(--white);
@@ -53,16 +54,21 @@ header {
 }
 
 .movie {
-    justify-content: space-evenly;
+    justify-content: space-around;
+    align-items: center;
     border: 3px solid var(--dark-grey);
     border-radius: 6px;
     padding: 20px 10px;
     min-height: 300px;
 }
 
+.movie h4 {
+    margin: 0;
+}
+
 .movie-poster {
     width: 30%;
-    margin: auto;
+    margin: 20px auto;
 }
 
 /* modal */
@@ -92,7 +98,7 @@ header {
 }
 
 #modal {
-    border: 3px solid var(--dark-grey);
+
     border-radius: 6px;
     padding: 20px 10px;
     background-color: black;
@@ -104,6 +110,7 @@ h1,
 h4 {
     font-family: var(--heading-font);
     letter-spacing: 4px;
+    text-align: center;
 }
 
 h1 {
@@ -131,20 +138,31 @@ input {
 
 button {
     cursor: pointer;
-    width: 20%;
-    min-width: 160px;
-    margin: 0 auto 20px;
-    padding: 10px 20px;
     outline: none;
     border: none;
-    font-size: 1.125rem;
     border-radius: 4px;
     text-transform: uppercase;
     transition: background-color .2s ease-in-out;
 }
 
+#search-btn {
+    width: 20%;
+    min-width: 160px;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    font-size: 1.125rem;
+
+}
+
 button:hover {
     background-color: var(--dark-grey);
+}
+
+.more-info {
+    min-width: 60px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: .75rem;
 }
 
 /* Media Queries */
@@ -161,7 +179,6 @@ button:hover {
     .movie-wrapper {
         grid-template-columns: repeat(2, 50%);
     }
-
 }
 
 @media (min-width: 1010px) {
