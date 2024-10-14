@@ -12,6 +12,7 @@ function getMovieData(searchedMovie) {
     return fetch(`https://www.omdbapi.com/?apikey=ced795e8&s=${searchedMovie}`)
     .then(response => response.json())
     .then(data => {
+        // console.log(data.Search)
         return data.Search //gives the array, just need to figure out how to get at it
     })
 }
@@ -41,37 +42,36 @@ function searchDatabase() {
         })
 }
 
-// to get more data for the modal, mor info from IMDB
 function moreMovieInfo() {
-        const movieSearchIMDB = searchedMovie.value  // Get the search input value
-        // Fetch the movie data and then handle the result
-        getMovieData(movieSearchIMDB).then(movieArray => {
-            if (movieArray) {
-                // Loop through the array and log the Title of each movie
-                movieArray.forEach(movie => {
-                    return fetch(`https://www.omdbapi.com/?apikey=ced795e8&i=${movie.imdbID}`)
-                    .then(response => response.json())
-                    .then(details => {
-                        movieModal.innerHTML = `
-                        <div class="movie">
-                            <h4>${details.Title}</h4>
-                            <p>${details.Year}</p>
-                            <img src="${details.Poster}" class="movie-poster">
-                            <p>For more information go to <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
-                            <p>${details.Actors}</p>
-                        </div>
-                        `
-                        })
-                })
-            } else {
-                console.log('No movies found.')
-            }
-        })
+    const movieSearchIMDB = searchedMovie.value  // Get the search input value
+    // Fetch the movie data and then handle the result
+    getMovieData(movieSearchIMDB).then(movieArray => {
+        if (movieArray) {
+            // Loop through the array and log the Title of each movie from imdb
+            movieArray.forEach(movie => {
+                return fetch(`https://www.omdbapi.com/?apikey=ced795e8&i=${movie.imdbID}`)
+                .then(response => response.json())
+                .then(details => {
+                    movieModal.innerHTML = `
+                    <div class="movie" data-index"${details.imdbID}">
+                        <h4>${details.Title}</h4>
+                        <p>${details.Year}</p>
+                        <img src="${details.Poster}" class="movie-poster">
+                        <p>For more information go to <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
+                        <p>${details.Actors}</p>
+                    </div>
+                    `
+                    })
+            })
+        } else {
+            console.log('No movies found.')
+        }
+    })
 }
 
-function displayModal() {
+function displayModal(index) {
     modalOverlay.style.display = 'flex'
-    moreMovieInfo()
+    moreMovieInfo(index)
 }
 
 // event listeners
@@ -79,6 +79,7 @@ searchedMovie.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         event.preventDefault()
     searchDatabase()
+    moreMovieInfo()
     }
 })
 
@@ -91,13 +92,18 @@ movieWrapper.addEventListener('click', (e) => {
     if(e.target !== movieWrapper) {
         const movieCard = e.target.closest(".movie")
         const index = movieCard.getAttribute('data-index')
-        searchDatabase(index)
-        moreMovieInfo(index)
+        console.log(index)
         displayModal(index)
     }
 })
+
+
 
 closeBtn.addEventListener('click', () => {
     modalOverlay.setAttribute('id', 'hidden')
     modalOverlay.style.display = 'none'
 })
+
+
+
+
