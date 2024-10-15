@@ -1,18 +1,24 @@
 //`https://www.omdbapi.com/?apikey=ced795e8&s=${searchedMovie}`
 
+const body = document.getElementById("body")
 let searchedMovie = document.getElementById("movie-input")
 const searchBtn = document.getElementById("search-btn")
 const movieWrapper = document.getElementById("movie-wrap")
 const closeBtn = document.getElementById("close")
 const modalOverlay = document.getElementById("modal-wrapper")
 const movieModal = document.getElementById("modal")
+let footYear = document.getElementById("year")
+let year = new Date
+let currentYear = year.getFullYear()
+
+footYear.textContent = currentYear
 
 
 function getMovieData(searchedMovie) {
     return fetch(`https://www.omdbapi.com/?apikey=ced795e8&s=${searchedMovie}`)
     .then(response => response.json())
     .then(data => {
-        // console.log(data.Search)
+        console.log(data.Search)
         return data.Search //gives the array, just need to figure out how to get at it
     })
 }
@@ -29,9 +35,13 @@ function searchDatabase() {
                         index = movie.imdbID
                         movieWrapper.innerHTML += `
                         <div class="movie" data-index="${index}">
-                            <h4>${movie.Title}</h4>
-                            <p>${movie.Year}</p>
-                            <img src="${movie.Poster}" class="movie-poster">
+                            <div class="movie-inner-wrap">
+                                <div class="movie-title-wrap">
+                                    <h4>${movie.Title}</h4>
+                                    <p>${movie.Year}</p>
+                                </div>
+                                <img src="${movie.Poster}" class="movie-poster">
+                            </div>
                             <button class="more-info">More Info</button>
                         </div>
                         `
@@ -42,68 +52,69 @@ function searchDatabase() {
         })
 }
 
-function moreMovieInfo() {
-    const movieSearchIMDB = searchedMovie.value  // Get the search input value
-    // Fetch the movie data and then handle the result
-    getMovieData(movieSearchIMDB).then(movieArray => {
-        if (movieArray) {
-            // Loop through the array and log the Title of each movie from imdb
-            movieArray.forEach(movie => {
-                return fetch(`https://www.omdbapi.com/?apikey=ced795e8&i=${movie.imdbID}`)
-                .then(response => response.json())
-                .then(details => {
-                    movieModal.innerHTML = `
-                    <div class="movie" data-index"${details.imdbID}">
-                        <h4>${details.Title}</h4>
-                        <p>${details.Year}</p>
-                        <img src="${details.Poster}" class="movie-poster">
-                        <p>For more information go to <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
-                        <p>${details.Actors}</p>
-                    </div>
-                    `
-                    })
-            })
-        } else {
-            console.log('No movies found.')
-        }
-    })
-}
+function moreMovieInfo(imdbID) {
+    movieModal.innerHTML = ""
+    return fetch(`https://www.omdbapi.com/?apikey=ced795e8&i=${imdbID}`)
+      .then((response) => response.json())
+      .then((details) => {
+        console.log(details);
+        movieModal.innerHTML = `
+          <div class="modal-movie" data-index="${details.imdbID}">
+            <div class="movie-inner-wrap">
+                <div class="movie-title-wrap">
+                    <h4>${details.Title}</h4>
+                    <p>${details.Year}</p>
+                </div>
+                <img src="${details.Poster}" class="movie-poster">
+            </div>
+            <div class="modal-movie-details">
+                <p class="plot">${details.Plot}</p>
+                <p><span class="bold">Rated:</span> ${details.Rated}</p>
+                <p><span class="bold">Genre:</span> ${details.Genre}</p>
+                <p><span class="bold">Starring:</span>  ${details.Actors}</p>
+                <p><span class="bold">Director:</span>  ${details.Director}</p>
+                <p class="imdb-info">Find out more about ${details.Title} on <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
+            </div>
+          </div>
+        `;
+      });
+  }
 
-function displayModal(index) {
-    modalOverlay.style.display = 'flex'
-    moreMovieInfo(index)
-}
+  function displayModal(imdbID) {
+    modalOverlay.style.display = "flex";
+    moreMovieInfo(imdbID);
+  }
 
-// event listeners
-searchedMovie.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault()
-    searchDatabase()
-    moreMovieInfo()
+  // event listeners
+  searchedMovie.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchDatabase();
+      moreMovieInfo();
     }
-})
+  });
 
-searchBtn.addEventListener('click', () => {
-    searchDatabase()
-})
+  searchBtn.addEventListener("click", () => {
+    searchDatabase();
+  });
 
-movieWrapper.addEventListener('click', (e) => {
-    modalOverlay.setAttribute('id', 'modal-wrapper')
-    if(e.target !== movieWrapper) {
-        const movieCard = e.target.closest(".movie")
-        const index = movieCard.getAttribute('data-index')
-        console.log(index)
-        displayModal(index)
+  movieWrapper.addEventListener("click", (e) => {
+    if (e.target.classList.contains("more-info")) {
+      const movieCard = e.target.closest(".movie");
+      const imdbID = movieCard.getAttribute("data-index");
+      displayModal(imdbID);
+    //   body.style.overflow = "hidden"
     }
-})
+  });
 
+  closeBtn.addEventListener("click", () => {
+    modalOverlay.style.display = "none";
+    // body.style.overflow = "visible"
+  });
 
-
-closeBtn.addEventListener('click', () => {
-    modalOverlay.setAttribute('id', 'hidden')
-    modalOverlay.style.display = 'none'
-})
-
-
-
-
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) {
+      modalOverlay.style.display = "none";
+    //   body.style.overflow = "visible"
+    }
+  });
