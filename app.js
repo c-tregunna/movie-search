@@ -65,7 +65,7 @@ function moreMovieInfo(imdbID) {
                     <h4>${details.Title}</h4>
                     <p>${details.Year}</p>
                 </div>
-                <img src="${details.Poster}" class="movie-poster">
+                <a href="${details.Poster}" target="_blank"><img src="${details.Poster}" class="movie-poster"></a>
             </div>
             <div class="modal-movie-details">
                 <p class="plot">${details.Plot}</p>
@@ -73,6 +73,10 @@ function moreMovieInfo(imdbID) {
                 <p><span class="bold">Genre:</span> ${details.Genre}</p>
                 <p><span class="bold">Starring:</span>  ${details.Actors}</p>
                 <p><span class="bold">Director:</span>  ${details.Director}</p>
+                <div class="rating-wrap">
+                <div class="rating"><span class="bold">Metascore:</span> ${details.Metascore}/100</div>
+                <div class="rating"><span class="bold">imdb:</span> ${details.imdbRating}/10</div>
+                </div>
                 <p class="imdb-info">Find out more about ${details.Title} on <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
             </div>
           </div>
