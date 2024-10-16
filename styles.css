@@ -269,7 +269,7 @@ button:hover {
     }
 
     .movie-wrapper {
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(2, 1fr)
     }
 
     .movie-inner-wrap {
@@ -289,6 +289,6 @@ button:hover {
 
 @media (min-width: 1010px) {
     .movie-wrapper {
-        grid-template-columns: repeat(3, 33%);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
