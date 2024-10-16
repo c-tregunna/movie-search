@@ -38,7 +38,9 @@ footer,
 .movie-title-wrap,
 #modal-wrapper,
 .modal-movie,
-.modal-movie-details  {
+.modal-movie-details,
+.rating-wrap,
+.rating  {
     display: flex;
     justify-content: center;
 }
@@ -60,7 +62,9 @@ footer {
 .movie-title-wrap,
 .movie-inner-wrap,
 .modal-movie,
-.modal-movie-details {
+.modal-movie-details,
+.rating-wrap,
+.rating {
     flex-direction: column;
 }
 
@@ -86,17 +90,16 @@ footer {
 
 .movie-title-wrap {
     align-items: center;
-    min-height: 140px;
 }
 
 .movie h4 {
-    margin: 0 0 10px 0;
+    margin: 0;
 }
 
 .movie-poster {
     width: 20%;
     display: block;
-    margin: auto;
+    margin: 0 auto;
 }
 
 a {
@@ -152,7 +155,10 @@ a:active {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    min-height: 200px;
+}
+
+.modal-movie-details {
+    width: 100%;
 }
 
 .modal-movie-details p {
@@ -174,21 +180,21 @@ a:active {
 }
 
 .rating-wrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 40%;
+    width: 80%;
     margin: 20px auto;
     gap: 10px;
 }
 
 .rating {
-    background-color: var(--dark-grey);
-    color: var(--black);
+    border: 2px solid var(--dark-grey);
+    color: var(--white);
     padding: 10px 20px;
     border-radius: 20px;
     text-align: center;
     font-size: .75rem;
+    width: 80%;
+    margin: auto;
+    height: 60px;
 }
 
 /* typography */
@@ -268,22 +274,30 @@ button:hover {
         font-size: 1.5rem;
     }
 
+    #modal .modal-movie .movie-poster {
+        width: 50%;
+    }
+
     .movie-wrapper {
         grid-template-columns: repeat(2, 1fr)
     }
 
     .movie-inner-wrap {
         flex-direction: row;
-        /* justify-content: space-around;
-        align-items: flex-start; */
     }
 
     .movie-title-wrap {
         flex-basis: 70%;
+        min-height: 140px;
+    }
+
+    .rating-wrap  {
+        flex-direction: row;
     }
 
     .rating {
-        font-size: 1rem;
+        width: 30%;
+        height: 50px;
     }
 }
 

@@ -18,7 +18,7 @@ function getMovieData(searchedMovie) {
     return fetch(`https://www.omdbapi.com/?apikey=ced795e8&s=${searchedMovie}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data.Search)
+        // console.log(data.Search)
         return data.Search //gives the array, just need to figure out how to get at it
     })
 }
@@ -57,7 +57,12 @@ function moreMovieInfo(imdbID) {
     return fetch(`https://www.omdbapi.com/?apikey=ced795e8&i=${imdbID}`)
       .then((response) => response.json())
       .then((details) => {
-        console.log(details);
+        // console.log(details);
+        const ratings = []
+        for(let i=0; i<details.Ratings.length; i++) {
+            ratings.push(details.Ratings[i])
+        }
+        // console.log(ratings)
         movieModal.innerHTML = `
           <div class="modal-movie" data-index="${details.imdbID}">
             <div class="movie-inner-wrap">
@@ -74,8 +79,9 @@ function moreMovieInfo(imdbID) {
                 <p><span class="bold">Starring:</span>  ${details.Actors}</p>
                 <p><span class="bold">Director:</span>  ${details.Director}</p>
                 <div class="rating-wrap">
-                <div class="rating"><span class="bold">Metascore:</span> ${details.Metascore}/100</div>
-                <div class="rating"><span class="bold">imdb:</span> ${details.imdbRating}/10</div>
+                    <div class="rating"><span class="bold">${ratings[0].Source}:</span> ${ratings[0].Value}</div>
+                    <div class="rating"><span class="bold">${ratings[1].Source}:</span> ${ratings[1].Value}</div>
+                    <div class="rating"><span class="bold">${ratings[2].Source}:</span> ${ratings[2].Value}</div>
                 </div>
                 <p class="imdb-info">Find out more about ${details.Title} on <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
             </div>
