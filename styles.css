@@ -197,6 +197,10 @@ a:active {
     height: 60px;
 }
 
+.no-show {
+    display: none;
+}
+
 /* typography */
 h1,
 h3,

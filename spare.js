@@ -37,7 +37,7 @@ function searchDatabase() {
                         if (movie.Poster === "N/A") {
                             poster = `<img src="../assets/poster-not-available.png" class="movie-poster" alt="not poster available">`;
                           } else {
-                            poster = `<img src="${movie.Poster}" class="movie-poster" alt="poster for ${movie.Title}">`;
+                            poster = `<img src="${movie.Poster}" class="movie-poster" alt="poster for ${movie.Title}>`;
                           }
                         movieWrapper.innerHTML += `
                         <div class="movie" data-index="${index}">
@@ -73,7 +73,7 @@ function moreMovieInfo(imdbID) {
         if (details.Poster === "N/A") {
             poster = `<img src="../assets/poster-not-available.png" class="movie-poster" alt="not poster available">`;
           } else {
-            poster = `<a href="${details.Poster}" target="_blank"><img src="${details.Poster}" class="movie-poster" alt="poster for ${details.Title}"></a>`;
+            poster = `<a href="${details.Poster}" target="_blank"><img src="${details.Poster}" class="movie-poster" alt="poster for ${movie.Title}></a>`;
           }
         // console.log(ratings)
         movieModal.innerHTML = `
@@ -93,24 +93,26 @@ function moreMovieInfo(imdbID) {
                 <p><span class="bold">Director:</span>  ${details.Director}</p>
                 <div class="rating-wrap">
                     <div class="rating"><span class="bold">${ratings[0].Source}:</span> ${ratings[0].Value}</div>
+                    `
+                    if(ratings.length > 1) {
+                        const rottenTomsRating = document.createElement("div")
+                        rottenTomsRating.classList.add("rating")
+                        rottenTomsRating.innerHTML = `<span class="bold">${ratings[1].Source}:</span> ${ratings[1].Value}`
+                        const ratingWrap = document.querySelector(".rating-wrap")
+                        ratingWrap.appendChild(rottenTomsRating)
+                    }   if(ratings.length > 2) {
+                            const metaRating = document.createElement("div")
+                            metaRating.classList.add("rating")
+                            metaRating.innerHTML = `<span class="bold">${ratings[2].Source}:</span> ${ratings[2].Value}`
+                            const ratingWrap = document.querySelector(".rating-wrap")
+                            ratingWrap.appendChild(metaRating)
+                    }
+                    `
                 </div>
                 <p class="imdb-info">Find out more about ${details.Title} on <a href="https://www.imdb.com/title/${details.imdbID}" target="_blank">IMDB</a></p>
             </div>
           </div>
         `
-        if(ratings.length > 1) {
-            const rottenTomsRating = document.createElement("div")
-            rottenTomsRating.classList.add("rating")
-            rottenTomsRating.innerHTML = `<span class="bold">${ratings[1].Source}:</span> ${ratings[1].Value}`
-            const ratingWrap = document.querySelector(".rating-wrap")
-            ratingWrap.appendChild(rottenTomsRating)
-        }   if(ratings.length > 2) {
-                const metaRating = document.createElement("div")
-                metaRating.classList.add("rating")
-                metaRating.innerHTML = `<span class="bold">${ratings[2].Source}:</span> ${ratings[2].Value}`
-                const ratingWrap = document.querySelector(".rating-wrap")
-                ratingWrap.appendChild(metaRating)
-        }
 
       })
   }
