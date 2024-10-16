@@ -11,7 +11,7 @@ let footYear = document.getElementById("year")
 let year = new Date
 let currentYear = year.getFullYear()
 
-footYear.textContent = currentYear
+footYear.innerHTML = `© ${currentYear}`
 
 
 function getMovieData(searchedMovie) {
