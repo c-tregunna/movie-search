@@ -86,7 +86,7 @@ footer {
 
 .movie-title-wrap {
     align-items: center;
-    min-height: 105px;
+    min-height: 140px;
 }
 
 .movie h4 {
@@ -274,8 +274,12 @@ button:hover {
 
     .movie-inner-wrap {
         flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
+        /* justify-content: space-around;
+        align-items: flex-start; */
+    }
+
+    .movie-title-wrap {
+        flex-basis: 70%;
     }
 
     .rating {
