@@ -86,6 +86,7 @@ footer {
 
 .movie-title-wrap {
     align-items: center;
+    min-height: 105px;
 }
 
 .movie h4 {
